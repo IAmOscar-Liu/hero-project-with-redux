@@ -1,22 +1,18 @@
+import { Link } from "react-router-dom";
 import { Hero } from "../types";
-import { Link, useNavigate, useLocation } from "react-router-dom";
 
-function HeroCard({ hero }: { hero: Hero }) {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const currentID =
-    location.pathname
-      .split("/")
-      .filter((e) => !!e)
-      .at(-1) ?? "0";
-
+function HeroCard({
+  hero,
+  isActive,
+  handleNavigate,
+}: {
+  hero: Hero;
+  isActive: boolean;
+  handleNavigate: () => void;
+}) {
   return (
-    <article className={currentID === hero.id ? "active" : ""}>
-      <div
-        className="img-wrapper"
-        onClick={() => navigate(`profile/${hero.id}`)}
-      >
+    <article className={isActive ? "active" : ""}>
+      <div className="img-wrapper" onClick={handleNavigate}>
         <img src={hero.image} alt={hero.name} loading="lazy" />
       </div>
       <h2>
